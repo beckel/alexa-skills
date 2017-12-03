@@ -4,7 +4,7 @@ const jsonframe = require('jsonframe-cheerio');
 
 const config = require('./config');
 
-// use cheerioframe to extract relevant data from myTichtennis Website
+// use cheerioframe to extract relevant data from myTischtennis Website
 function getScoreTableFromBody(body) {
 	const $ = cheerio.load(body);
 	jsonframe($);
@@ -24,7 +24,7 @@ function getScoreTableFromBody(body) {
 	return scrapeResult.table;
 }
 
-// use cheerioframe to extract relevant match data from myTichtennis Website
+// use cheerioframe to extract relevant match data from myTischtennis Website
 function getMatchesFromBody(body) {
 	const $ = cheerio.load(body);
 	jsonframe($);
@@ -39,9 +39,11 @@ function getMatchesFromBody(body) {
 			}]
 		}
 	};
+	console.log('Start scraping - takes some time!');
 	let scrapeResult = $('table').eq(1).scrape(frame, {
 		string: false
 	});
+	console.log('Done scraping.');
 	return scrapeResult.table;
 }
 
@@ -127,16 +129,19 @@ module.exports = {
 
 		// query myTischtennis and identify last result of the team
 		return new Promise(function(resolve, reject) {
+
 			let result = "";
 			got(url).then(res => {
 				let scoreTable = getMatchesFromBody(res.body).reverse();
 				
 				for (i in scoreTable) {
+					
 					if (Object.keys(scoreTable[i]).length > 0) {
 						if (scoreTable[i].date != '\n') {
 							let date = scoreTable[i].date.substring(4,14);
 							if (scoreTable[i].team1 == teamName || scoreTable[i].team2 == teamName) {
 								if (scoreTable[i].result != '\n') {
+									console.log("Found a match");
 									result += 'Das letzte Spiel war am ' + date + ". ";
 									result += scoreTable[i].team1 + " gegen " + scoreTable[i].team2 + ", ";
 									result += scoreTable[i].result.replace(/ /g,'') + ".";
@@ -147,6 +152,7 @@ module.exports = {
 					}
 				}
 				
+				console.log("Did not find corresponding match");
 				result += "Ich kann kein Spiel finden."
 			}).then( () => {
 				resolve(result);
