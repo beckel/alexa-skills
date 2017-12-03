@@ -23,7 +23,9 @@ Invoke with: "*Alexa, frage Tischtennis Kleinsachsenheim ...*"
 * Wie hat die {number} Mannschaft das letzte mal gespielt
 
 
+### Notes
 
+This skill has not been published yet.
 
 ### changelog
 * 03 Dec 2017

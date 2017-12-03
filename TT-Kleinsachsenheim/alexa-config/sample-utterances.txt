@@ -1,0 +1,6 @@
+Tabelle Wie ist die Tabelle der {number} Mannschaft
+Tabelle Wie ist die Tabelle der Liga der {number} Mannschaft
+Platzierung Auf welchem Platz steht die {number} Mannschaft
+Platzierung Wie ist die Platzierung der {number} Mannschaft
+LetztesMatch Wie war das letzte Spiel der {number} Mannschaft
+LetztesMatch Wie hat die {number} Mannschaft das letzte mal gespielt
